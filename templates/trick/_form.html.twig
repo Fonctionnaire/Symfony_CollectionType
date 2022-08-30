@@ -1,4 +1,23 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_widget(form._token) }}
+    <div>
+        {{ form_row(form.name) }}
+    </div>
+    <div id="trick_images" data-prototype="{{ include('trick/_image.html.twig', {form: form.images.vars.prototype})|e("html_attr") }}" data-index="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}">
+        {% for image in form.images %}
+            {{ include('trick/_image.html.twig', {form: image}) }}
+        {% endfor %}
+        {{ form_errors(form.images) }}
+        <button type="button" class="btn btn-primary btn-new" data-collection="#trick_images">Ajouter une image</button>
+    </div>
+    <div id="trick_videos" data-prototype="{{ include('trick/_video.html.twig', {form: form.videos.vars.prototype})|e("html_attr") }}" data-index="{{ form.videos|length > 0 ? form.videos|last.vars.name + 1 : 0 }}">
+        {% for video in form.videos %}
+            {{ include('trick/_video.html.twig', {form: video}) }}
+        {% endfor %}
+        {{ form_errors(form.videos) }}
+        <button type="button" class="btn btn-primary btn-new" data-collection="#trick_videos">Ajouter une vidéo</button>
+    </div>
+    <div>
+        {{ form_row(form.valider) }}
+    </div>
+{{ form_end(form, {render_rest: false}) }}
