@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Trick;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -36,10 +37,14 @@ class FileUploader
     public function uploadImages(Trick $trick)
     {
 
+
         foreach($trick->getImages() as $image)
         {
-            $this->upload($image);
-            $trick->addImage($image);
+            if($image->getImageName() === null)
+            {
+                $image->setImageName($this->upload($image->getFile()));
+            }
+
         }
     }
 

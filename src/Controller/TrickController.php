@@ -7,6 +7,8 @@ use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,12 +57,15 @@ class TrickController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_trick_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
+    public function edit(Request $request, Trick $trick, TrickRepository $trickRepository, FileUploader $fileUploader): Response
     {
+
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $fileUploader->uploadImages($trick);
             $trickRepository->add($trick, true);
 
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
