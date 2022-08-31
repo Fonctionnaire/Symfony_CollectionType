@@ -3,9 +3,10 @@
 namespace App\Service;
 
 use App\Entity\Trick;
+use App\Entity\Video;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class FileUploader
@@ -51,5 +52,29 @@ class FileUploader
     public function getTargetDirectory()
     {
         return $this->targetDirectory;
+    }
+
+    public function getVideoId(Video $video) {
+
+        parse_str(parse_url($video->getVideoname(), PHP_URL_QUERY), $videoId);
+
+        if (isset($videoId['v'])) {
+            $video->setVideoname($videoId['v']);
+        }
+    }
+
+    public function uploadVideos(Trick $trick)
+    {
+        foreach ($trick->getVideos() as $video) {
+
+            $check = parse_url($video->getVideoname(), PHP_URL_HOST);
+
+            if ($check == "www.youtube.com") {
+
+                $this->getVideoId($video);
+
+                $trick->addVideo($video);
+            }
+        }
     }
 }
