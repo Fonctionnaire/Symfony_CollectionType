@@ -37,6 +37,7 @@ class TrickController extends AbstractController
             $slug = $slugger->slug($form->getData()->getName());
             $trick->setSlug($slug);
             $fileUploader->uploadImages($trick);
+            $fileUploader->uploadVideos($trick);
             $trickRepository->add($trick, true);
 
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
@@ -66,6 +67,8 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $fileUploader->uploadImages($trick);
+            $fileUploader->uploadVideos($trick);
+
             $trickRepository->add($trick, true);
 
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
