@@ -18,6 +18,9 @@
         <button type="button" class="btn btn-primary btn-new" data-collection="#trick_videos">Ajouter une vidéo</button>
     </div>
     <div>
+        {{ form_errors(form) }}
+    </div>
+    <div>
         {{ form_row(form.valider) }}
     </div>
 {{ form_end(form, {render_rest: false}) }}

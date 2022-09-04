@@ -25,6 +25,11 @@ class Image
 
     private $file = null;
 
+    public function __toString(): string
+    {
+        return $this->getImageName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

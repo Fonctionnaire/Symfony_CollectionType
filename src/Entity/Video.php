@@ -22,6 +22,9 @@ class Video
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $videoId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,6 +50,18 @@ class Video
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
+
+        return $this;
+    }
+
+    public function getVideoId(): ?string
+    {
+        return $this->videoId;
+    }
+
+    public function setVideoId(string $videoId): self
+    {
+        $this->videoId = $videoId;
 
         return $this;
     }
