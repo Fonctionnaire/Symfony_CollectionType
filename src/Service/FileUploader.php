@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Trick;
 use App\Entity\Video;
+use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -54,26 +55,21 @@ class FileUploader
         return $this->targetDirectory;
     }
 
-    public function getVideoId(Video $video) {
-
-        parse_str(parse_url($video->getVideoname(), PHP_URL_QUERY), $videoId);
-
-        if (isset($videoId['v'])) {
-            $video->setVideoname($videoId['v']);
-        }
-    }
 
     public function uploadVideos(Trick $trick)
     {
         foreach ($trick->getVideos() as $video) {
 
-            $check = parse_url($video->getVideoname(), PHP_URL_HOST);
+            $check = parse_url($video->getVideoname(), PHP_URL_HOST) ;
+            parse_str(parse_url($video->getVideoname(), PHP_URL_QUERY), $videoId);
 
-            if ($check == "www.youtube.com") {
+            if ($check === "www.youtube.com" && array_key_exists('v', $videoId)) {
 
-                $this->getVideoId($video);
+                $video->setVideoId($videoId['v']);
 
                 $trick->addVideo($video);
+            }else{
+                throw new Exception("Veuillez ajouter des vidéos Youtube uniquement");
             }
         }
     }
