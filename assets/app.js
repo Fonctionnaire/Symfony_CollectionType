@@ -15,7 +15,6 @@ const newItem = (e) => {
     const collectionHolder = document.querySelector(e.currentTarget.dataset.collection);
 
     const item = document.createElement("div");
-    item.classList.add("col-4");
     item.innerHTML = collectionHolder
         .dataset
         .prototype
@@ -30,5 +29,5 @@ const newItem = (e) => {
 
     collectionHolder.dataset.index++;
 };
-document.querySelectorAll('.btn-remove').forEach(btn => btn.addEventListener("click", (e) => e.currentTarget.closest(".col-4").remove()));
+document.querySelectorAll('.btn-remove').forEach(btn => btn.addEventListener("click", (e) => e.currentTarget.closest(".my-image").remove()));
 document.querySelectorAll('.btn-new').forEach(btn => btn.addEventListener('click', newItem));

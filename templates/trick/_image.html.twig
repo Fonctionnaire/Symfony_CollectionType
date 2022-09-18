@@ -1,5 +1,6 @@
 <div>
     {% set file = form.file.vars.data %}
+    {{ dump(file) }}
     {{ form_row(form.file) }}
     <div class="form-group">
         <button type="button" class="btn btn-danger btn-remove">Supprimer</button>
