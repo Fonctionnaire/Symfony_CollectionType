@@ -38,15 +38,15 @@ class FileUploader
 
     public function uploadImages(Trick $trick)
     {
-
-
         foreach($trick->getImages() as $image)
         {
-            if($image->getImageName() === null)
+            if($image->getFile() !== null)
             {
                 $image->setImageName($this->upload($image->getFile()));
+            }elseif ($image->getImageName() === null && $image->getFile() === null)
+            {
+                $trick->removeImage($image);
             }
-
         }
     }
 
@@ -69,7 +69,7 @@ class FileUploader
 
                 $trick->addVideo($video);
             }else{
-                throw new Exception("Veuillez ajouter des vidéos Youtube uniquement");
+                $trick->removeVideo($video);
             }
         }
     }

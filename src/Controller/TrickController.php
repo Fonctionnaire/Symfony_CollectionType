@@ -65,13 +65,13 @@ class TrickController extends AbstractController
         foreach ($trick->getImages() as $image)
         {
             $image->setFile(new File($this->getParameter('images_directory').'/'. $image->getImageName()));
-
-
         }
+
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $fileUploader->uploadImages($trick);
             $fileUploader->uploadVideos($trick);
 

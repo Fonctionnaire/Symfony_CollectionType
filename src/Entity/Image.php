@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
@@ -23,12 +23,8 @@ class Image
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;
 
-    private $file = null;
-
-    public function __toString(): string
-    {
-        return $this->getImageName();
-    }
+//    #[Assert\NotBlank(message: 'Veuillez choisir une image')]
+    private $file;
 
     public function getId(): ?int
     {
