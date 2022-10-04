@@ -68,7 +68,7 @@ class FileUploader
                 $video->setVideoId($videoId['v']);
 
                 $trick->addVideo($video);
-            }else{
+            }elseif ($video->getVideoname() === null || $video->getVideoId() === null) {
                 $trick->removeVideo($video);
             }
         }
