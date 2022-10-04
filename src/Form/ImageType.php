@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ImageType extends AbstractType
 {
@@ -27,7 +28,8 @@ class ImageType extends AbstractType
                             'image/jpeg'
                         ],
                         'mimeTypesMessage' => 'Merci d\'ajouter une image au format jpg ou png de maximum 5Mo.',
-                    ])
+                    ]),
+                    new NotNull(message: 'Veuillez renseigner tous les champs images')
                 ],
             ]);
     }
