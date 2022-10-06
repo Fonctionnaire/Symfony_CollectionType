@@ -30,7 +30,7 @@ class TrickController extends AbstractController
     public function new(Request $request, TrickRepository $trickRepository, FileUploader $fileUploader): Response
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick, ['validation_groups' => 'new']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +67,7 @@ class TrickController extends AbstractController
             $image->setFile(new File($this->getParameter('images_directory').'/'. $image->getImageName()));
         }
 
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick, ['validation_groups' => 'edit']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

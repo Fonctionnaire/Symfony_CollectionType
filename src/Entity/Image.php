@@ -26,6 +26,11 @@ class Image
 //    #[Assert\NotBlank(message: 'Veuillez choisir une image')]
     private $file;
 
+    public function __toString(): string
+    {
+        return $this->getImageName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class TrickType extends AbstractType
 {
@@ -22,6 +24,10 @@ class TrickType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'constraints' => [
+                    new Count(min: 1, minMessage: 'Vous devez ajouter au moins une image.', groups: ['new', 'edit']),
+                    new Valid(),
+                ],
             ])
             ->add('videos', CollectionType::class, [
                 'label' => 'Vidéos',
@@ -29,6 +35,9 @@ class TrickType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'constraints' => [
+                    new Count(min: 1,  minMessage: 'Vous devez ajouter au moins une vidéo.', groups: ['new', 'edit'])
+                ],
           ])
             ->add('valider', SubmitType::class, [
                 'label' => 'Valider'
@@ -40,6 +49,7 @@ class TrickType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Trick::class,
+            'validation_groups' => []
         ]);
     }
 }
