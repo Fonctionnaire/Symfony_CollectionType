@@ -26,13 +26,9 @@ class Trick
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Image::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
-    #[Assert\Valid]
-    #[Assert\Count(min: 1, minMessage: 'Veuillez ajouter au moins une image')]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Video::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
-    #[Assert\Valid]
-    #[Assert\Count(min: 1, minMessage: 'Veuillez ajouter au moins une vidéo')]
     private Collection $videos;
 
     #[ORM\Column(length: 255)]

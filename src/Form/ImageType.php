@@ -29,7 +29,7 @@ class ImageType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Merci d\'ajouter une image au format jpg ou png de maximum 5Mo.',
                     ]),
-                    new NotNull(message: 'Veuillez renseigner tous les champs images')
+                    new NotNull(message: 'Veuillez renseigner tous les champs images', groups: ['new'])
                 ],
             ]);
     }
@@ -37,6 +37,7 @@ class ImageType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Image::class,
+            'validation_groups' => []
         ]);
     }
 }
