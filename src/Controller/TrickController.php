@@ -33,6 +33,7 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick, ['validation_groups' => 'new']);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $slugger = new AsciiSlugger();
             $slug = $slugger->slug($form->getData()->getName());
@@ -44,7 +45,7 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('trick/new.html.twig', [
+        return $this->render('trick/new.html.twig', [
             'trick' => $trick,
             'form' => $form,
         ]);
@@ -80,7 +81,7 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('trick/edit.html.twig', [
+        return $this->render('trick/edit.html.twig', [
             'trick' => $trick,
             'form' => $form,
         ]);

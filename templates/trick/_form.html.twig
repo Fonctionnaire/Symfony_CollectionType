@@ -4,18 +4,40 @@
         {{ form_row(form.name) }}
     </div>
     <div id="trick_images" data-prototype="{{ include('trick/_image.html.twig', {form: form.images.vars.prototype})|e("html_attr") }}" data-index="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}">
-        {% for image in form.images %}
-            {{ include('trick/_image.html.twig', {form: image}) }}
-        {% endfor %}
+        <div class="form-media-section">
+            {% for image in form.images %}
+                {% if image %}
+                    <div class="input-media hidden-input">
+                        <img src="{{ asset('images/uploads/') }}{{ image.vars.data.imageName }}" alt="{{ image.vars.data.imageName }}">
+                        {{ include('trick/_image.html.twig', {form: image}) }}
+                    </div>
+                    {% else %}
+                        <div class="input-media">
+                            {{ include('trick/_image.html.twig', {form: image}) }}
+                        </div>
+                {% endif %}
+            {% endfor %}
+        </div>
         {{ form_errors(form.images) }}
-        <button type="button" class="btn btn-primary btn-new" data-collection="#trick_images">Ajouter une image</button>
+        <button type="button" class="btn btn-primary btn-new mt-3" data-collection="#trick_images">Ajouter une image</button>
     </div>
     <div id="trick_videos" data-prototype="{{ include('trick/_video.html.twig', {form: form.videos.vars.prototype})|e("html_attr") }}" data-index="{{ form.videos|length > 0 ? form.videos|last.vars.name + 1 : 0 }}">
-        {% for video in form.videos %}
-            {{ include('trick/_video.html.twig', {form: video}) }}
-        {% endfor %}
+        <div class="form-media-section">
+            {% for video in form.videos %}
+                {% if video %}
+                    <div class="input-media hidden-input">
+                        <iframe width="350" height="215" src="https://www.youtube.com/embed/{{ video.vars.data.videoName }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        {{ include('trick/_video.html.twig', {form: video}) }}
+                    </div>
+                    {% else %}
+                        <div class="input-media">
+                            {{ include('trick/_video.html.twig', {form: video}) }}
+                        </div>
+                {% endif %}
+            {% endfor %}
+        </div>
         {{ form_errors(form.videos) }}
-        <button type="button" class="btn btn-primary btn-new" data-collection="#trick_videos">Ajouter une vidéo</button>
+        <button type="button" class="btn btn-primary btn-new mt-3" data-collection="#trick_videos">Ajouter une vidéo</button>
     </div>
     <div>
         {{ form_errors(form) }}
