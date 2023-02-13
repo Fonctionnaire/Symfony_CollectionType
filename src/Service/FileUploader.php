@@ -35,13 +35,10 @@ class FileUploader
 
     public function uploadImages(Trick $trick): void
     {
-        foreach($trick->getImages() as $image)
-        {
-            if($image->getFile() !== null)
-            {
+        foreach ($trick->getImages() as $image) {
+            if ($image->getFile() !== null) {
                 $image->setImageName($this->upload($image->getFile()));
-            }elseif ($image->getImageName() === null && $image->getFile() === null)
-            {
+            } elseif ($image->getImageName() === null && $image->getFile() === null) {
                 $trick->removeImage($image);
             }
         }
@@ -56,16 +53,14 @@ class FileUploader
     public function uploadVideos(Trick $trick): void
     {
         foreach ($trick->getVideos() as $video) {
-
             $check = parse_url($video->getVideoname(), PHP_URL_HOST) ;
             parse_str(parse_url($video->getVideoname(), PHP_URL_QUERY), $videoId);
 
             if ($check === "www.youtube.com" && array_key_exists('v', $videoId)) {
-
                 $video->setVideoId($videoId['v']);
 
                 $trick->addVideo($video);
-            }elseif ($video->getVideoname() === null || $video->getVideoId() === null) {
+            } elseif ($video->getVideoname() === null || $video->getVideoId() === null) {
                 $trick->removeVideo($video);
             }
         }

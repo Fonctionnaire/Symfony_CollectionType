@@ -36,7 +36,7 @@ class TrickType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'constraints' => [
-                    new Count(min: 1,  minMessage: 'Vous devez ajouter au moins une vidéo.', groups: ['new', 'edit'])
+                    new Count(min: 1, minMessage: 'Vous devez ajouter au moins une vidéo.', groups: ['new', 'edit'])
                 ],
           ])
             ->add('valider', SubmitType::class, [
