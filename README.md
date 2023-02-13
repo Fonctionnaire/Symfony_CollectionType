@@ -2,6 +2,8 @@
 
 Example of functional code with a form managing two CollectionType, one of which is a FileType.
 
+[![SymfonyInsight](https://insight.symfony.com/projects/8082c2cf-fb34-48d4-aea5-8b0f610b1439/big.svg)](https://insight.symfony.com/projects/8082c2cf-fb34-48d4-aea5-8b0f610b1439)
+
 ---
 ## Requirements
 
