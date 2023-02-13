@@ -3,11 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Trick;
-use App\Entity\Video;
-use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class FileUploader
@@ -15,13 +12,13 @@ class FileUploader
     private $targetDirectory;
     private $slugger;
 
-    public function __construct($targetDirectory, SluggerInterface $slugger)
+    public function __construct(string $targetDirectory, SluggerInterface $slugger)
     {
         $this->targetDirectory = $targetDirectory;
         $this->slugger = $slugger;
     }
 
-    public function upload(UploadedFile $file)
+    public function upload(UploadedFile $file): string
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
@@ -30,13 +27,13 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            dd($e);
+            throw new FileException($e);
         }
 
         return $fileName;
     }
 
-    public function uploadImages(Trick $trick)
+    public function uploadImages(Trick $trick): void
     {
         foreach($trick->getImages() as $image)
         {
@@ -50,13 +47,13 @@ class FileUploader
         }
     }
 
-    public function getTargetDirectory()
+    public function getTargetDirectory(): string
     {
         return $this->targetDirectory;
     }
 
 
-    public function uploadVideos(Trick $trick)
+    public function uploadVideos(Trick $trick): void
     {
         foreach ($trick->getVideos() as $video) {
 
