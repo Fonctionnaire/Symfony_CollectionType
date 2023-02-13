@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class VideoType extends AbstractType
 {
@@ -15,8 +16,15 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('videoName', TextType::class, [
+                'label' => 'Vidéo',
                 'constraints' => [
-                    new NotNull(message: 'Veuillez renseigner tous les champs images')
+                    new NotNull(message: 'Veuillez renseigner tous les champs vidéo', groups: ['new']),
+                    new Regex(
+                        pattern: "/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/",
+                        message: 'Merci d\'ajouter une url provenant de Youtube.',
+                        match: true,
+                        groups: ['new', 'edit'],
+                    )
                 ]
             ])
         ;
@@ -26,6 +34,7 @@ class VideoType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Video::class,
+            'validation_groups' => []
         ]);
     }
 }

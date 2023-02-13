@@ -1,0 +1,33 @@
+.form-media-section
+{
+    display: flex;
+    margin: 25px;
+}
+
+.btn
+{
+    margin-bottom: 10px;
+}
+
+iframe
+{
+    margin: 0 10px;
+}
+
+.hidden-input
+{
+    text-align: center;
+}
+
+.hidden-input input
+{
+    display: none;
+}
+
+.hidden-input img
+{
+    height: 150px;
+    width: 125px;
+    object-fit: contain;
+    text-align: center;
+}

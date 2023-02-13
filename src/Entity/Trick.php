@@ -21,7 +21,7 @@ class Trick
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ', groups: ['new', 'edit'])]
     #[Assert\Length(min: 2, minMessage: 'Ce champ doit comporter au moins {{limit}} caractères')]
     private ?string $name = null;
 

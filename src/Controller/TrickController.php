@@ -33,6 +33,7 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick, ['validation_groups' => 'new']);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $slugger = new AsciiSlugger();
             $slug = $slugger->slug($form->getData()->getName());
