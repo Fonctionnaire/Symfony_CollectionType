@@ -41,6 +41,8 @@ class TrickController extends AbstractController
             $fileUploader->uploadVideos($trick);
             $trickRepository->add($trick, true);
 
+            $this->addFlash('success', 'La figure a bien été créée');
+
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,7 +78,7 @@ class TrickController extends AbstractController
             $fileUploader->uploadVideos($trick);
 
             $trickRepository->add($trick, true);
-
+            $this->addFlash('success', 'La figure a bien été éditée');
             return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -89,9 +91,9 @@ class TrickController extends AbstractController
     #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
-        $trickId = (int) $trick->getId();
+        $token = $request->request->get('token');
 
-        if ($this->isCsrfTokenValid('delete'.$trickId, $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete', $token)) {
             $trickRepository->remove($trick, true);
         }
 
