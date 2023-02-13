@@ -63,9 +63,7 @@ class TrickController extends AbstractController
     #[Route('/{slug}/edit', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository, FileUploader $fileUploader, EntityManagerInterface $em): Response
     {
-
-        foreach ($trick->getImages() as $image)
-        {
+        foreach ($trick->getImages() as $image) {
             $image->setFile(new File($this->getParameter('images_directory').'/'. $image->getImageName()));
         }
 
@@ -73,7 +71,6 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $fileUploader->uploadImages($trick);
             $fileUploader->uploadVideos($trick);
 
