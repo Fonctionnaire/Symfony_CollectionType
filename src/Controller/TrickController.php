@@ -89,7 +89,7 @@ class TrickController extends AbstractController
     #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
-        $trickId = $trick->getId();
+        $trickId = (int) $trick->getId();
 
         if ($this->isCsrfTokenValid('delete'.$trickId, $request->request->get('_token'))) {
             $trickRepository->remove($trick, true);
