@@ -1,12 +1,12 @@
-# CollectionType avec champs FileType
+# CollectionType with FileType fields
 
-Exemple de code fonctionnel avec un formulaire gérant deux CollectionType, dont un qui est un FileType.
+Example of functional code with a form managing two CollectionType, one of which is a FileType.
 
 ---
 ## Requirements
 
-* PHP 8.1+
-* Symfony 6.1+
+* PHP >= 8.1
+* Symfony 6.2.*
 * Composer
 * NPM
 * SQL
@@ -14,17 +14,17 @@ Exemple de code fonctionnel avec un formulaire gérant deux CollectionType, dont
 ---
 ## Installation
 
-* Télécharger ou cloner le Repo
+* Download or clone the Repository
 * ``composer install``
 * ``npm install``
-* Créer un fichier ``.env.local`` et y copier-coller le contenu du fichier .env.
-* Dans le ``.env.local``, paramétrer la BDD.
-* Utiliser la commande ``symfony console d:d:c``.
-* Utiliser la commande ``symfony console d:s:u --force``.
+* Create ``.env.local`` file and copy and paste the content of the .env file.
+* In the ``.env.local``, set up the DB.
+* Run the ``symfony console d:d:c`` command.
+* Run the ``symfony console d:s:u --force`` command.
 
 ---
-## Utilisation
+## Usage
 
-Le projet utilise WebpackEncore.
+The project uses WebpackEncore.
 
-Lancer la commande ``npm run watch``.
+Run the command ``npm run watch``.
