@@ -76,7 +76,7 @@ class TrickController extends AbstractController
 
             $trickRepository->add($trick, true);
             $this->addFlash('success', 'La figure a bien été éditée');
-            return $this->redirectToRoute('app_trick_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_trick_index', ['_fragment' => 'my_anchor'], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('trick/edit.html.twig', [
@@ -88,9 +88,9 @@ class TrickController extends AbstractController
     #[Route('/{id}', name: 'app_trick_delete', methods: ['POST'])]
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
-        $token = $request->request->get('token');
+        $token = $request->request->get('_token');
 
-        if ($this->isCsrfTokenValid('delete', $token)) {
+        if ($this->isCsrfTokenValid(sprintf('delete%s', $trick->getId()), $token)) {
             $trickRepository->remove($trick, true);
         }
 
