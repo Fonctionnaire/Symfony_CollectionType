@@ -17,12 +17,13 @@ Example of functional code with a form managing two CollectionType, one of which
 ## Installation
 
 * Download or clone the Repository
-* ``composer install``
-* ``npm install``
+* Run the command ``composer install``
+* Run the command``npm install --force``
+* Run the command ``npm run build``.
 * Create ``.env.local`` file and copy and paste the content of the .env file.
 * In the ``.env.local``, set up the DB.
-* Run the ``symfony console d:d:c`` command.
-* Run the ``symfony console d:s:u --force`` command.
+* Run the command ``symfony console d:d:c``.
+* Run the command ``symfony console d:s:u --force``.
 
 ---
 ## Usage
