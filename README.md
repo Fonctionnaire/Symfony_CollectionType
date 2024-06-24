@@ -7,10 +7,9 @@ Example of functional code with a form managing two CollectionType, one of which
 ---
 ## Requirements
 
-* PHP >= 8.1
-* Symfony 6.2.*
+* PHP >= 8.3
+* Symfony 7.0.*
 * Composer
-* NPM
 * SQL
 
 ---
@@ -18,16 +17,9 @@ Example of functional code with a form managing two CollectionType, one of which
 
 * Download or clone the Repository
 * Run the command ``composer install``
-* Run the command``npm install --force``
-* Run the command ``npm run build``.
 * Create ``.env.local`` file and copy and paste the content of the .env file.
 * In the ``.env.local``, set up the DB.
 * Run the command ``symfony console d:d:c``.
-* Run the command ``symfony console d:s:u --force``.
+* Run the command ``symfony console d:m:m``.
 
----
-## Usage
 
-The project uses WebpackEncore.
-
-Run the command ``npm run watch``.
