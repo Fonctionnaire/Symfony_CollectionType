@@ -19,7 +19,7 @@
             {% endfor %}
         </div>
         {{ form_errors(form.images) }}
-        <button type="button" class="btn btn-primary btn-new mt-3" data-collection="#trick_images">Ajouter une image</button>
+        <button type="button" class="btn btn-primary btn-new mt-3 mb-4" data-collection="#trick_images">Ajouter une image</button>
     </div>
     <div id="trick_videos" data-prototype="{{ include('trick/_video.html.twig', {form: form.videos.vars.prototype})|e("html_attr") }}" data-index="{{ form.videos|length > 0 ? form.videos|last.vars.name + 1 : 0 }}">
         <div class="form-media-section">
@@ -37,12 +37,12 @@
             {% endfor %}
         </div>
         {{ form_errors(form.videos) }}
-        <button type="button" class="btn btn-primary btn-new mt-3" data-collection="#trick_videos">Ajouter une vidéo</button>
+        <button type="button" class="btn btn-primary btn-new mt-3 mb-4" data-collection="#trick_videos">Ajouter une vidéo</button>
     </div>
 <div>
     {{ form_errors(form) }}
 </div>
-    <div>
+    <div class="mt-5">
         {{ form_row(form.valider) }}
     </div>
 

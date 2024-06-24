@@ -10,9 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
 class Video
 {
-
-    const YOUTUBE = 'youtube';
-    const DAILYMOTION = 'dailymotion';
+    public const YOUTUBE = 'youtube';
+    public const DAILYMOTION = 'dailymotion';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

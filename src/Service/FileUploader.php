@@ -9,10 +9,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class FileUploader
 {
-
     public function __construct(private readonly string $targetDirectory, private readonly SluggerInterface $slugger)
     {
-
     }
 
     public function upload(UploadedFile $file): string
@@ -32,11 +30,10 @@ class FileUploader
 
     public function uploadImages(Trick $trick): void
     {
-
         foreach ($trick->getImages() as $image) {
-            if ($image->getFile() !== null) {
+            if (null !== $image->getFile()) {
                 $image->setImageName($this->upload($image->getFile()));
-            } elseif ($image->getImageName() === null && $image->getFile() === null) {
+            } elseif (null === $image->getImageName() && null === $image->getFile()) {
                 $trick->removeImage($image);
             }
         }
@@ -47,30 +44,26 @@ class FileUploader
         return $this->targetDirectory;
     }
 
-
     public function uploadVideos(Trick $trick): void
     {
-
         foreach ($trick->getVideos() as $video) {
-            $check = parse_url($video->getVideoname(), PHP_URL_HOST) ;
+            $check = parse_url($video->getVideoname(), PHP_URL_HOST);
             parse_str(parse_url($video->getVideoname(), PHP_URL_QUERY), $videoId);
 
-
-            if ($check === "www.youtube.com" && array_key_exists('v', $videoId)) {
+            if ('www.youtube.com' === $check && array_key_exists('v', $videoId)) {
                 $video->setVideoId($videoId['v']);
 
                 $trick->addVideo($video);
-            }
-            elseif ($check === "www.dailymotion.com"){
+            } elseif ('www.dailymotion.com' === $check) {
                 $parsedUrl = parse_url($video->getVideoname());
                 $pathSegments = explode('/', trim($parsedUrl['path'], '/'));
                 $dailymotionId = end($pathSegments);
                 $video->setVideoId($dailymotionId);
                 $trick->addVideo($video);
             }
-//            elseif ($video->getVideoname() === null || $video->getVideoId() === null) {
-//                $trick->removeVideo($video);
-//            }
+            //            elseif ($video->getVideoname() === null || $video->getVideoId() === null) {
+            //                $trick->removeVideo($video);
+            //            }
         }
     }
 }

@@ -32,7 +32,6 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick, ['validation_groups' => 'new']);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $slugger = new AsciiSlugger();
             $slug = $slugger->slug($form->getData()->getName());
@@ -64,7 +63,7 @@ class TrickController extends AbstractController
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository, FileUploader $fileUploader, EntityManagerInterface $em): Response
     {
         foreach ($trick->getImages() as $image) {
-            $image->setFile(new File($this->getParameter('images_directory').'/'. $image->getImageName()));
+            $image->setFile(new File($this->getParameter('images_directory').'/'.$image->getImageName()));
         }
 
         $form = $this->createForm(TrickType::class, $trick, ['validation_groups' => 'edit']);
@@ -76,6 +75,7 @@ class TrickController extends AbstractController
 
             $trickRepository->add($trick, true);
             $this->addFlash('success', 'La figure a bien été éditée');
+
             return $this->redirectToRoute('app_trick_index', ['_fragment' => 'my_anchor'], Response::HTTP_SEE_OTHER);
         }
 

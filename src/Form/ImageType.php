@@ -25,19 +25,20 @@ class ImageType extends AbstractType
                         'mimeTypes' => [
                             'image/png',
                             'image/jpg',
-                            'image/jpeg'
+                            'image/jpeg',
                         ],
                         'mimeTypesMessage' => 'Merci d\'ajouter une image au format jpg ou png de maximum 5Mo.',
                     ]),
-                    new NotNull(message: 'Veuillez renseigner tous les champs images', groups: ['new'])
+                    new NotNull(message: 'Veuillez renseigner tous les champs images', groups: ['new']),
                 ],
             ]);
     }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Image::class,
-            'validation_groups' => []
+            'validation_groups' => [],
         ]);
     }
 }
