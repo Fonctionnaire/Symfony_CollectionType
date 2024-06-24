@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
 #[Route('/trick')]
@@ -31,7 +31,6 @@ class TrickController extends AbstractController
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick, ['validation_groups' => 'new']);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $slugger = new AsciiSlugger();
@@ -60,11 +59,11 @@ class TrickController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/edit', name: 'app_trick_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit/', name: 'app_trick_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository, FileUploader $fileUploader, EntityManagerInterface $em): Response
     {
         foreach ($trick->getImages() as $image) {
-            $image->setFile(new File($this->getParameter('images_directory').'/'. $image->getImageName()));
+            $image->setFile(new File($this->getParameter('images_directory').'/'.$image->getImageName()));
         }
 
         $form = $this->createForm(TrickType::class, $trick, ['validation_groups' => 'edit']);
@@ -76,6 +75,7 @@ class TrickController extends AbstractController
 
             $trickRepository->add($trick, true);
             $this->addFlash('success', 'La figure a bien été éditée');
+
             return $this->redirectToRoute('app_trick_index', ['_fragment' => 'my_anchor'], Response::HTTP_SEE_OTHER);
         }
 

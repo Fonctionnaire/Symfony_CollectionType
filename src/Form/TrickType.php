@@ -17,7 +17,9 @@ class TrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'required' => false,
+            ])
             ->add('images', CollectionType::class, [
                 'label' => 'Images',
                 'entry_type' => ImageType::class,
@@ -36,11 +38,11 @@ class TrickType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'constraints' => [
-                    new Count(min: 1, minMessage: 'Vous devez ajouter au moins une vidéo.', groups: ['new', 'edit'])
+                    new Count(min: 1, minMessage: 'Vous devez ajouter au moins une vidéo.', groups: ['new', 'edit']),
                 ],
-          ])
+            ])
             ->add('valider', SubmitType::class, [
-                'label' => 'Valider'
+                'label' => 'Valider',
             ])
         ;
     }
@@ -49,7 +51,7 @@ class TrickType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Trick::class,
-            'validation_groups' => []
+            'validation_groups' => [],
         ]);
     }
 }

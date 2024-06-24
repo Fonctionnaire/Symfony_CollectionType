@@ -24,8 +24,8 @@ class VideoType extends AbstractType
                         message: 'Merci d\'ajouter une url provenant de Youtube.',
                         match: true,
                         groups: ['new', 'edit'],
-                    )
-                ]
+                    ),
+                ],
             ])
         ;
     }
@@ -34,7 +34,7 @@ class VideoType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Video::class,
-            'validation_groups' => []
+            'validation_groups' => [],
         ]);
     }
 }
